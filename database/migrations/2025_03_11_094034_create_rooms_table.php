@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('type');
             $table->integer('capacity');
             $table->boolean('require_deposit');
-            $table->decimal('deposit_cost');
+            $table->decimal('deposit_cost')->nullable();
             $table->timestamps();
         });
     }

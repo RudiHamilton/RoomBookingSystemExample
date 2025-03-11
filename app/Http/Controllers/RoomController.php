@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreRoomRequest;
 use App\Models\Room;
 use Illuminate\Http\Request;
 
@@ -21,15 +22,24 @@ class RoomController extends Controller
      */
     public function create()
     {
-        //
+        return view('bookingsystem.rooms.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreRoomRequest $request)
     {
-        //
+        $request->validated();
+        Room::create([
+            'name'=> $request->name,
+            'type'=> $request->type,
+            'capacity'=> $request->capacity,
+            'require_deposit'=> $request->require_deposit,
+            'deposit_cost'=> $request->depost_cost,
+        ]);
+        
+        return redirect('rooms')->with('success','Room stored correctly!');
     }
 
     /**

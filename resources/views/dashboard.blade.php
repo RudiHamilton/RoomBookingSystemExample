@@ -13,19 +13,19 @@
                     
                 </div>
                 @can('role control')
-                    <a href="{{url('roles')}}"class="btn btn-xs btn-info pull-right">View Roles</a>
+                    <a href="{{url('roles')}}"class="btn btn-xs btn-info pull-right m-3">View Roles</a>
                 @endcan
                 @can('permission control')
-                    <a href="{{url('permissions')}}" class="btn btn-xs btn-info pull-right">View Permissions</a>
+                    <a href="{{url('permissions')}}" class="btn btn-xs btn-info pull-right m-3">View Permissions</a>
                 @endcan
                 @can('view rooms')
-                    <a href="{{url('rooms')}}" class="btn btn-xs btn-info pull-right">View Rooms</a>
+                    <a href="{{url('rooms')}}" class="btn btn-xs btn-info pull-right m-3">View Rooms</a>
                 @endcan
                 @can('view bookings')
-                    <a href="{{url('bookings')}}" class="btn btn-xs btn-info pull-right">View Bookings</a>
+                    <a href="{{url('bookings')}}" class="btn btn-xs btn-info pull-right m-3">View Bookings</a>
                 @endcan
                 @can('view users')
-                    <a href="{{url('users')}}" class="btn btn-xs btn-info pull-right">View Users</a>
+                    <a href="{{url('users')}}" class="btn btn-xs btn-info pull-right m-3">View Users</a>
                 @endcan
                
             </div>

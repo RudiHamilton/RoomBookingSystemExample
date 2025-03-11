@@ -8,7 +8,9 @@
                 <div class="card">
                     <div class="card-header">
                         <h2>View Rooms
-                            <a  class="btn btn-primary float-end" href="{{ url(path: 'rooms/create')}}">Add</a>
+                            @can('create rooms')
+                                <a  class="btn btn-primary float-end" href="{{ url(path: 'rooms/create')}}">Add</a>
+                            @endcan
                             <a  class="btn btn-primary float-end" href="{{ url('dashboard')}}">Back</a>
                         </h2>
                     </div>
@@ -39,6 +41,9 @@
                                         @endcan
                                         @can('delete rooms')
                                             <a href="{{url('rooms/'.$room->room_id.'/delete')}}"class="btn btn-danger">Delete</a>
+                                        @endcan
+                                        @can('create bookings')
+                                            <a  class="btn btn-primary float-end" href="{{ url(path: 'bookings/create')}}">Add</a>
                                         @endcan
                                     </td>
                                 </tr>
