@@ -10,7 +10,24 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     {{ __("You're logged in!") }}
+                    
                 </div>
+                @can('role control')
+                    <a class="btn btn-xs btn-info pull-right">View Roles</a>
+                @endcan
+                @can('permission control')
+                    <a class="btn btn-xs btn-info pull-right">View Permissions</a>
+                @endcan
+                @can('view rooms')
+                    <a href="{{url('rooms')}}" class="btn btn-xs btn-info pull-right">View Rooms</a>
+                @endcan
+                @can('view bookings')
+                    <a href="{{url('bookings')}}" class="btn btn-xs btn-info pull-right">View Bookings</a>
+                @endcan
+                @can('view users')
+                    <a href="{{url('users')}}" class="btn btn-xs btn-info pull-right">View Users</a>
+                @endcan
+               
             </div>
         </div>
     </div>

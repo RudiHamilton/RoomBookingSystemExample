@@ -34,31 +34,33 @@ class RolesAndPermissionsSeeder extends Seeder
         Permission::create(['name' => 'create users']);
         Permission::create(['name' => 'delete users']);
 
+        Permission::create(['name'=> 'role control']);
+        Permission::create(['name'=> 'permission control']);
+
         // update cache to know about the newly created permissions (required if using WithoutModelEvents in seeders)
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
 
         // create roles and assign created permissions
-        
-        $role = Role::create(['name' => 'user'])
-            ->givePermissionTo(['view rooms', 'create bookings']);
-
-        // or may be done by chaining
-        $role = Role::create(['name' => 'staff'])
-            ->givePermissionTo(['view rooms', 'edit rooms','view bookings', 'edit bookings', 'create bookings', 'view users']);
-
         $role = Role::create(['name' => 'super-admin']);
         $role->givePermissionTo(Permission::all());
 
+        $role = Role::create(['name' => 'staff'])
+            ->givePermissionTo(['view rooms', 'edit rooms','view bookings', 'edit bookings', 'create bookings', 'view users']);
+
+        $role = Role::create(['name' => 'user'])
+            ->givePermissionTo(['view rooms', 'create bookings']);
 
         //PLEASE REMOVE
-        $superAdminUser = User::where('id',11)->get(); 
+        $superAdminUser = User::find(1); 
 
         $superAdminUser->assignRole('super-admin');
 
+        $staff = User::find(2);
+        $staff->assignRole('staff');
 
-
-        // Assign roles to users
+        $user = User::find(3);
+        $user->assignRole('user');
 
         
     }
