@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Booking;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Permission;
 
-class BookingController extends Controller
+class PermissionController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $bookings = Booking::all();
-        return view('bookingsystem.bookings.index',compact('bookings'));
+        $permissions = Permission::all();
+        return view('rolesandpermissions.permissions.index',compact('permissions'));
     }
 
     /**
@@ -35,7 +35,7 @@ class BookingController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Booking $booking)
+    public function show(string $id)
     {
         //
     }
@@ -43,16 +43,16 @@ class BookingController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(String $id)
+    public function edit(string $id)
     {
-        $bookings = Booking::findOrFail($id);
-        return view('bookingsystem.bookings.edit',compact('bookings'));
+        $permissions = Permission::findOrFail($id);
+        return view('rolesandpermissions.permissions.edit',compact('permissions'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Booking $booking)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -60,10 +60,10 @@ class BookingController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($booking_id)
+    public function destroy($id)
     {
-        $booking = Booking::findOrFail($booking_id);
-        $booking->delete();
-        return redirect('bookings')->with('status','Booking deleted successfully');
+        $permission = Permission::findOrFail(id: $id);
+        $permission->delete();
+        return redirect('permissions')->with('status','Permission deleted successfully');
     }
 }

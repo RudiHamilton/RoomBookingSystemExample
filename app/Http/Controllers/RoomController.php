@@ -43,9 +43,10 @@ class RoomController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Room $room)
+    public function edit(String $id)
     {
-        //
+        $rooms = Room::findOrFail($id);
+        return view('bookingsystem.rooms.edit',compact('rooms'));
     }
 
     /**
@@ -59,8 +60,10 @@ class RoomController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Room $room)
+    public function destroy($room_id)
     {
-        //
+        $room = Room::findOrFail($room_id);
+        $room->delete();
+        return redirect('rooms')->with('status','Room deleted successfully');
     }
 }

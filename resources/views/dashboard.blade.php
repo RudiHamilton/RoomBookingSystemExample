@@ -13,10 +13,10 @@
                     
                 </div>
                 @can('role control')
-                    <a class="btn btn-xs btn-info pull-right">View Roles</a>
+                    <a href="{{url('roles')}}"class="btn btn-xs btn-info pull-right">View Roles</a>
                 @endcan
                 @can('permission control')
-                    <a class="btn btn-xs btn-info pull-right">View Permissions</a>
+                    <a href="{{url('permissions')}}" class="btn btn-xs btn-info pull-right">View Permissions</a>
                 @endcan
                 @can('view rooms')
                     <a href="{{url('rooms')}}" class="btn btn-xs btn-info pull-right">View Rooms</a>

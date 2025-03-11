@@ -43,9 +43,10 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(User $user)
+    public function edit(String $id)
     {
-        //
+        $users = User::findOrFail($id);
+        return view('bookingsystem.users.edit',compact('users'));
     }
 
     /**
@@ -59,8 +60,10 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+    public function destroy($user_id)
     {
-        //
+        $user = User::findOrFail($user_id);
+        $user->delete();
+        return redirect('users')->with('status','User deleted successfully');
     }
 }

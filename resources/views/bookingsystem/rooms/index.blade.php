@@ -2,9 +2,13 @@
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-12">
+                @if(session('status'))
+                    <div class="alert alert-success">{{session('status')}}</div>
+                @endif
                 <div class="card">
                     <div class="card-header">
                         <h2>View Rooms
+                            <a  class="btn btn-primary float-end" href="{{ url(path: 'rooms/create')}}">Add</a>
                             <a  class="btn btn-primary float-end" href="{{ url('dashboard')}}">Back</a>
                         </h2>
                     </div>
@@ -29,6 +33,14 @@
                                     <td>{{$room->capacity}}</td>
                                     <td>{{$room->require_deposit}}</td>
                                     <td>{{$room->deposit_cost}}</td>
+                                    <td>
+                                        @can('edit rooms')
+                                            <a href="{{url('rooms/'.$room->room_id.'/edit')}}" class="btn btn-success">Edit</a>
+                                        @endcan
+                                        @can('delete rooms')
+                                            <a href="{{url('rooms/'.$room->room_id.'/delete')}}"class="btn btn-danger">Delete</a>
+                                        @endcan
+                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>
