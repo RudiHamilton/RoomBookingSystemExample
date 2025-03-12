@@ -8,6 +8,7 @@
                             <a  class="btn btn-primary float-end" href="{{ url('bookings')}}">Back</a>
                         </h2>
                     </div>
+                    
                 </div>
             </div>
         </div>

@@ -30,14 +30,16 @@ class RoomController extends Controller
      */
     public function store(StoreRoomRequest $request)
     {
-        $request->validated();
-        Room::create([
-            'name'=> $request->name,
-            'type'=> $request->type,
-            'capacity'=> $request->capacity,
-            'require_deposit'=> $request->require_deposit,
-            'deposit_cost'=> $request->depost_cost,
-        ]);
+        //holy balls what?
+        Room::create($request->validated());
+
+        // Room::create([
+        //     'name'=> $request->name,
+        //     'type'=> $request->type,
+        //     'capacity'=> $request->capacity,
+        //     'require_deposit'=> $request->require_deposit,
+        //     'deposit_cost'=> $request->depost_cost,
+        // ]);
         
         return redirect('rooms')->with('success','Room stored correctly!');
     }
@@ -56,15 +58,17 @@ class RoomController extends Controller
     public function edit(String $id)
     {
         $rooms = Room::findOrFail($id);
+
         return view('bookingsystem.rooms.edit',compact('rooms'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Room $room)
+    public function update(StoreRoomRequest $request,$room_id)
     {
-        //
+        Room::where('room_id',$room_id)->update($request->validated());
+        return redirect('rooms')->with('success','Room updated correctly');
     }
 
     /**

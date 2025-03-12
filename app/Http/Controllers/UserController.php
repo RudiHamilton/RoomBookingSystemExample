@@ -52,9 +52,17 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
-    {
-        //
+    public function update(Request $request,$user_id)
+    {   
+        $data = [
+            'first_name'=> $request->first_name,
+            'second_name'=> $request->second_name,
+            'email'=> $request->email,
+            'phone_number'=> $request->phone_number,
+            'credit'=>$request->credit,
+        ];
+        User::where('user_id',$user_id)->update($data);
+        return redirect('users')->with('success','Room updated correctly');
     }
 
     /**

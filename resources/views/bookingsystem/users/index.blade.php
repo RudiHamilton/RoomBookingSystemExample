@@ -8,9 +8,6 @@
                 <div class="card">
                     <div class="card-header">
                         <h2>View Users
-                            @can('create users')
-                                <a  class="btn btn-primary float-end" href="{{ url(path: 'users/create')}}">Add</a>
-                            @endcan
                             <a  class="btn btn-primary float-end" href="{{ url('dashboard')}}">Back</a>
                         </h2>
                     </div>

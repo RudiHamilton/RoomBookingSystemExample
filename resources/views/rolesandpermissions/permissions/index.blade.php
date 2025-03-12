@@ -8,8 +8,8 @@
                 <div class="card">
                     <div class="card-header">
                         <h2>View Permissions
-                            <a  class="btn btn-primary float-end" href="{{ url(path: 'permissions/create')}}">Add</a>
                             <a  class="btn btn-primary float-end" href="{{ url('dashboard')}}">Back</a>
+                            <a  class="btn btn-primary float-end" href="{{ url(path: 'permissions/create')}}">Add</a>
                         </h2>
                     </div>
                     <div class="card-body">

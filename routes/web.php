@@ -6,14 +6,17 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\UserController;
+use App\Models\Booking;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('bookings/create/{room_id}',[BookingController::class,'create']);
+Route::post('bookings/store/{user_id}/{room_id}',[BookingController::class,'store']);
 Route::get('bookings/{booking_id}/delete',[BookingController::class,'destroy'])->middleware('role:super-admin');
-Route::resource('bookings', BookingController::class)->middleware('role:super-admin|staff');
+Route::resource('bookings', BookingController::class)->middleware('role:super-admin|staff|user');
 
 
 Route::get('rooms/{room_id}/delete',[RoomController::class,'destroy'])->middleware('role:super-admin');

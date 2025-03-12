@@ -4,7 +4,9 @@
             {{ __('Dashboard') }}
         </h2>
     </x-slot>
-
+    @if(session('status'))
+        <div class="alert alert-failed">{{session('status')}}</div>
+    @endif
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -28,6 +30,14 @@
                     <a href="{{url('users')}}" class="btn btn-xs btn-info pull-right m-3">View Users</a>
                 @endcan
                
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mt-5">
+                <div class="p-6 text-gray-900">
+                    {{ __("You're booked into room:") }}
+                    
+                </div>
             </div>
         </div>
     </div>
