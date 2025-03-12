@@ -7,9 +7,8 @@ use App\Models\Room;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Spatie\Permission\Models\Permission;
-use  App\Services\BookingService;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Routing\Controllers\Middleware;
+
 
 class BookingController extends Controller
 {
@@ -18,7 +17,6 @@ class BookingController extends Controller
      */
 
     public function __construct(){ 
-        // add feature to ensure that admin cannot add or remove permissions if they dont have them.
         $this->middleware('permission:create bookings',options: ['only'=>['create','store']]);
     }
 
@@ -95,16 +93,29 @@ class BookingController extends Controller
      */
     public function edit(Request $request, String $id)
     {
-        $bookings = Booking::findOrFail($id); 
-        return view('bookingsystem.bookings.edit',compact('bookings'));
+        $bookings = Booking::findOrFail($id);
+        $users = User::all();
+        $rooms = Room::all();
+        return view('bookingsystem.bookings.edit',compact('bookings','users','rooms'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Booking $booking)
+    public function update(Request $request,$booking_id)
     {
-        //
+        $date = $request->input('date');
+        $time = $request->input('time');
+        $time = $time.':00';
+        $date = $date.' '.$time;
+        
+        $data = [
+            'user_id'=> $request->user_id,
+            'room_id'=> $request->room_id,
+            'date'=> $date,
+        ];
+        Booking::where('booking_id',$booking_id)->update($data);
+        return redirect('bookings')->with('success','Booking updated correctly');
     }
 
     /**

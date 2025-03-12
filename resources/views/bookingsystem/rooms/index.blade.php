@@ -10,7 +10,7 @@
                         <h2>View Rooms
                             <a  class="btn btn-primary float-end" href="{{ url('dashboard')}}">Back</a>
                             @can('create rooms')
-                                <a  class="btn btn-primary float-end" href="{{ url(path: 'rooms/create')}}">Add</a>
+                                <a  class="btn btn-primary float-end" href="{{ url(path: 'rooms/create')}}">Add Room</a>
                             @endcan
                         </h2>
                     </div>
@@ -43,7 +43,7 @@
                                             <a href="{{url('rooms/'.$room->room_id.'/delete')}}"class="btn btn-danger">Delete</a>
                                         @endcan
                                         @can('create bookings')
-                                            <a  class="btn btn-primary float-end" href="{{ url(path: 'bookings/create/'.$room->room_id)}}">Add</a>
+                                            <a  class="btn btn-primary float-end mt-1" href="{{ url(path: 'bookings/create/'.$room->room_id)}}">Add Booking with this Room</a>
                                         @endcan
                                     </td>
                                 </tr>
