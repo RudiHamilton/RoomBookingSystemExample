@@ -4,12 +4,15 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h2>Create Booking
+                        <h2>Show Booking
                             @can('view rooms')
                                 <a  class="btn btn-primary float-end" href="{{ url('rooms')}}">Back to rooms</a>
                             @endcan
                             @can('view bookings')
                                 <a  class="btn btn-primary float-end" href="{{ url('bookings')}}">Back to bookings</a>
+                            @endcan
+                            @can('view rooms')
+                                <a  class="btn btn-primary float-end" href="{{ url(path: 'dashboard')}}">Back to dashboard</a>
                             @endcan
                         </h2>
                     </div>
@@ -17,7 +20,7 @@
                         <x-input-label for="name" :value="__('You are booked into this room on the '.$bookings->date)" />
 
                         <br>
-                        <h1 class="mb-2 ">Room Information</h1>
+                        <h1 class="fs-4 mb-2 ">Room Information</h1>
                         <x-input-label for="name" :value="__('Room Name --- '.$room->name)" />
                         <x-input-label for="name" :value="__('Room Type --- '.$room->type)" />
                         <x-input-label for="name" :value="__('Room Capacity --- '.$room->capacity)" />

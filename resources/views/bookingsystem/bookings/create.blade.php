@@ -27,8 +27,8 @@
                             <x-input-label for="name" :value="__('Room Deposit Cost --- '.$room->deposit_cost)" />
                             <br>
                             <x-input-label for="name" :value="__('Select date and time of booking:')" />
-                            <input name="date" class="date" type="date">
-                            <input name="time" class="time" type="time">
+                            <input name="date" class="date" type="date" required>
+                            <input name="time" class="time" type="time" required>
                             <br>
                             <br>
                             <div class="mb-3">

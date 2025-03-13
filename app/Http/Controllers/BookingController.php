@@ -41,12 +41,9 @@ class BookingController extends Controller
     {
         $creditBeforeBooking = User::where('user_id',$user_id)->value('credit');
         $roomDepositCost = Room::where('room_id',$room_id)->value('deposit_cost');
+        $roomDepositNeeded = Room::where('room_id',$room_id)->value('require_deposit');
 
-        $creditAfterBooking =  $creditBeforeBooking - $roomDepositCost;
-
-        if($creditAfterBooking < 0){
-            return redirect('dashboard')->with('status','please add more credits too book this room');
-        }else{
+        if($roomDepositNeeded == false){
             $date = $request->input('date');
             $time = $request->input('time');
             $time = $time.':00';
@@ -57,12 +54,56 @@ class BookingController extends Controller
                 'room_id' => $room_id,
                 'date'=> $date,
             ]);
-            User::where('user_id',$user_id)
-                ->update([
-                'credit'=> $creditAfterBooking,
-            ]);
             return redirect('dashboard')->with('status','Booking created successfully');
-        }
+        } else{
+            
+            $creditAfterBooking =  $creditBeforeBooking - $roomDepositCost;
+
+            if($creditAfterBooking < 0){
+
+                return redirect('dashboard')->with('status','please add more credits too book this room');
+
+            }else{
+
+                $date = $request->input('date');
+                $time = $request->input('time');
+                $time = $time.':00';
+                $date = $date.' '.$time;
+
+                Booking::create([
+                    'user_id'=> $user_id,
+                    'room_id' => $room_id,
+                    'date'=> $date,
+                ]);
+                User::where('user_id',$user_id)
+                    ->update([
+                    'credit'=> $creditAfterBooking,
+                ]);
+                return redirect('dashboard')->with('status','Booking created successfully');
+            }
+    }
+
+        // $creditAfterBooking =  $creditBeforeBooking - $roomDepositCost;
+
+        // if($creditAfterBooking < 0){
+        //     return redirect('dashboard')->with('status','please add more credits too book this room');
+        // }else{
+        //     $date = $request->input('date');
+        //     $time = $request->input('time');
+        //     $time = $time.':00';
+        //     $date = $date.' '.$time;
+
+        //     Booking::create([
+        //         'user_id'=> $user_id,
+        //         'room_id' => $room_id,
+        //         'date'=> $date,
+        //     ]);
+        //     User::where('user_id',$user_id)
+        //         ->update([
+        //         'credit'=> $creditAfterBooking,
+        //     ]);
+        //     return redirect('dashboard')->with('status','Booking created successfully');
+        // }
     }
 
     /**

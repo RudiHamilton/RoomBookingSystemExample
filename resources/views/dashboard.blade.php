@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
     @if(session('status'))
-        <div class="alert alert-failed">{{session('status')}}</div>
+        <div class="alert alert-success">{{session('status')}}</div>
     @endif
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
