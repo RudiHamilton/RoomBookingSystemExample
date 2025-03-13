@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -43,10 +44,11 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(String $id)
+    public function edit(User $user)
     {
-        $users = User::findOrFail($id);
-        return view('bookingsystem.users.edit',compact('users'));
+        $userRoles = $user->roles->pluck('name','name')->all();
+        $roles = Role::pluck('name','name')->all();
+        return view('bookingsystem.users.edit',compact('user','roles', 'userRoles'));
     }
 
     /**

@@ -29,6 +29,7 @@
                                     <td>
                                         <a href="{{url('roles/'.$role->id.'/edit')}}" class="btn btn-success">Edit</a>
                                         <a href="{{url('roles/'.$role->id.'/delete')}}"class="btn btn-danger">Delete</a>
+                                        <a href="{{url('roles/'.$role->id.'/addpermission')}}" class="btn btn-primary">Add/Edit Role Permission</a>
                                     </td>
                                 </tr>
                                 @endforeach

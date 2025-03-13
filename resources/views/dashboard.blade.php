@@ -35,7 +35,17 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mt-5">
                 <div class="p-6 text-gray-900">
-                    {{ __("You're booked into room:") }}
+                   
+                    @forelse ($rooms as $room)
+                        <p><a href="{{url('bookings/show/'.$room->room_id)}}">You are booked into room: {{$room->name}}</a></p>
+                    @empty
+                        {{ __("You have no bookings!") }}
+                        @can('view rooms')
+                            <a href="{{url('rooms')}}" class="btn btn-xs btn-info pull-right m-3">Create Booking</a>
+                        @endcan
+                    @endforelse
+                    
+                    
                     
                 </div>
             </div>

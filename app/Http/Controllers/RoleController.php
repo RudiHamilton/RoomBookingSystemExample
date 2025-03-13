@@ -96,13 +96,13 @@ class RoleController extends Controller
         ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
         ->all();
 
-        return view('role-permission.role.addpermission',[
+        return view('rolesandpermissions.roles.addpermission',[
             'role'=>$role,
             'permissions'=>$permissions,
             'rolePermission'=>$rolePermission,
         ]);
     }
-    
+
     public function givePermissionToRole(Request $request, $roleid){
         $request -> validate([
             'permission'=>'required',

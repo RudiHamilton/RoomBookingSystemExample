@@ -7,7 +7,7 @@ use App\Models\Room;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 
 class BookingController extends Controller
 {
@@ -68,9 +68,11 @@ class BookingController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Booking $booking)
+    public function show($room_id)
     {
-        //
+        $room = Room::find($room_id);
+        $bookings = Booking::where('room_id',$room_id)->first();
+        return view('bookingsystem.bookings.show',compact('bookings','room'));
     }
 
     /**

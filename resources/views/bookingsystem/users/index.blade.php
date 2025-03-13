@@ -22,6 +22,7 @@
                                     <th>Email</th>
                                     <th>Credit</th>
                                     <th>Email verfied?</th>
+                                    <th>Role</th>
                                 </tr>
                             </thead>
                             <tbody>
