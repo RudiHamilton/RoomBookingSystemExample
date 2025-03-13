@@ -52,16 +52,26 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request,$user_id)
+    public function update(Request $request, User $user)
     {   
+        $request->validate([
+            'first_name'=>'required|string|max:255',
+            'second_name'=>'required|string|max:255',
+            'email'=>'required|string|max:255',
+            'phone_number'=> 'required|string|max:14',
+            'roles'=>'required',
+        ]);
+
         $data = [
             'first_name'=> $request->first_name,
             'second_name'=> $request->second_name,
             'email'=> $request->email,
             'phone_number'=> $request->phone_number,
             'credit'=>$request->credit,
+            'roles[]'=> $request->role_id,
         ];
-        User::where('user_id',$user_id)->update($data);
+        $user->update($data);
+        $user->syncRoles($request->roles);
         return redirect('users')->with('success','Room updated correctly');
     }
 

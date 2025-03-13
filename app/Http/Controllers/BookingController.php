@@ -7,7 +7,6 @@ use App\Models\Room;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Routing\Controllers\Middleware;
 
 
 class BookingController extends Controller
@@ -16,9 +15,6 @@ class BookingController extends Controller
      * Display a listing of the resource.
      */
 
-    public function __construct(){ 
-        $this->middleware('permission:create bookings',options: ['only'=>['create','store']]);
-    }
 
     public function index()
     {
@@ -67,17 +63,6 @@ class BookingController extends Controller
             ]);
             return redirect('dashboard')->with('status','Booking created successfully');
         }
-        // //dd($creditAfterBooking);
-        // Booking::create([
-        //     'user_id'=> $user_id,
-        //     'room_id' => $room_id,
-        //     'date'=> $date,
-        // ]);
-        // User::where('user_id',$user_id)
-        //     ->update([
-        //     'credit'=> $creditAfterBooking,
-        // ]);
-        // return redirect('dashboard');
     }
 
     /**

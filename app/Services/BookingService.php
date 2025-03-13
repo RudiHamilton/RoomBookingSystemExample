@@ -10,12 +10,4 @@ use Illuminate\Support\Facades\Request;
 class BookingService{
     
     //,Room $room,Booking $booking)
-    public function addBooking(Request $request,User $user){
-
-        
-        $user = $request->user();
-        
-        dd($user);
-
-    }
 }
