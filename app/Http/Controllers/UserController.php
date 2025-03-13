@@ -72,8 +72,10 @@ class UserController extends Controller
             'credit'=>$request->credit,
             'roles[]'=> $request->role_id,
         ];
+        
         $user->update($data);
         $user->syncRoles($request->roles);
+        
         return redirect('users')->with('success','Room updated correctly');
     }
 

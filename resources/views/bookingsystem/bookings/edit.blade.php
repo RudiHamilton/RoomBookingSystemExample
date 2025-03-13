@@ -12,14 +12,14 @@
                         <form action="{{url('bookings/'.$bookings->booking_id)}}" method="POST">
                             @csrf
                             @method('PUT')
-                            <x-input-label for="room_id" class="mt1" :value="__('Select date and time of booking:')" />
+                            <x-input-label for="room_id" class="mt1" :value="__('Select room:')" />
                             <select name="room_id">
                                 @foreach ($rooms as $room)
                                     <option value="{{$room->room_id}}">{{$room->name}}</option>
                                 @endforeach
                             </select>
                             <br>
-                            <x-input-label for="user_id" class="mt1" :value="__('Select date and time of booking:')" />
+                            <x-input-label for="user_id" class="mt1" :value="__('Select user:')" />
                             <select name="user_id">
                                 @foreach ($users as $user)
                                     <option value="{{$user->user_id}}">{{$user->first_name." ".$user->second_name}}</option>
