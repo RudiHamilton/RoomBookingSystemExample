@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id');
             $table->foreignId('room_id');
             $table->date('date');
-            $table->time('timeStart');
+            $table->time(column: 'timeStart');
             $table->time('timeEnd');
             $table->integer('hoursRoomBooked');
             $table->timestamps();
