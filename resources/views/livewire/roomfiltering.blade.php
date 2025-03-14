@@ -24,7 +24,7 @@
                     <td>{{$room->name}}</td>
                     <td>{{$room->type}}</td>
                     <td>{{$room->capacity}}</td>
-                    <td>{{$room->require_deposit}}</td>
+                    <td>{{$room->require_deposit ? 'True' : 'False' }}</td>
                     <td>{{$room->deposit_cost}}</td>
                     <td>
                         @can('edit rooms')

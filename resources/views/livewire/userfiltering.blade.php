@@ -16,7 +16,9 @@
                     <th>Email</th>
                     <th>Credit</th>
                     <th>Email verfied?</th>
-                    <th>Role</th>
+                    @can('delete users')
+                        <th>Role</th>
+                    @endcan
                 </tr>
             </thead>
             <tbody>

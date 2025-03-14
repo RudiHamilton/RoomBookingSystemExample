@@ -23,7 +23,7 @@
                             <x-input-label for="name" :value="__('Room Name --- '.$room->name)" />
                             <x-input-label for="name" :value="__('Room Type --- '.$room->type)" />
                             <x-input-label for="name" :value="__('Room Capacity --- '.$room->capacity)" />
-                            <x-input-label for="name" :value="__('Does Room require Deposit? --- '.$room->require_deposit)" />
+                                <p class="block font-medium text-sm text-gray-700 mb-2">Does Room require Deposit? --- {{$room->require_deposit ? 'True' : 'False'}}</p>
                             <x-input-label for="name" :value="__('Room Deposit Cost --- '.$room->deposit_cost)" />
                             <br>
                             <x-input-label for="name" :value="__('Select date of booking:')" />
