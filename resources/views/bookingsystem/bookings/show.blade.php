@@ -26,7 +26,10 @@
                         <x-input-label for="name" :value="__('Room Capacity --- '.$room->capacity)" />
                         <x-input-label for="name" :value="__('Does Room require Deposit? --- '.$room->require_deposit)" />
                         <x-input-label for="name" :value="__('Room Deposit Cost --- '.$room->deposit_cost)" />
-                        <x-input-label for="name" :value="__('Date and Time Booked --- '.$bookings->date)" />
+                        <x-input-label for="name" :value="__('Date Booked --- '.$bookings->date)" />
+                        <x-input-label for="name" :value="__('Hours Booked --- '.$bookings->hoursRoomBooked)" />
+                        <x-input-label for="name" :value="__('Time Slot --- '.$bookings->timeStart.' - '.$bookings->timeEnd)" />
+                        
                     </div>
                 </div>
             </div>

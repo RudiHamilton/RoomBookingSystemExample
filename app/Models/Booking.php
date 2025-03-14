@@ -15,5 +15,8 @@ class Booking extends Model
         'user_id',
         'room_id',
         'date',
+        'timeStart',
+        'timeEnd',
+        'hoursRoomBooked',
     ];
 }

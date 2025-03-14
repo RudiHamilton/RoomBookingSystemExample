@@ -18,7 +18,8 @@
                                     <th>Booking ID</th>
                                     <th>User ID</th>
                                     <th>Room ID</th>
-                                    <th>Date and Time booked</th>
+                                    <th>Date booked</th>
+                                    <th>Time Slot booked</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -28,7 +29,7 @@
                                     <td>{{$booking->user_id}}</td>
                                     <td>{{$booking->room_id}}</td>
                                     <td>{{$booking->date}}</td>
-                                    
+                                    <td>{{$booking->timeStart}} - {{$booking->timeEnd}}</td>
                                     <td>
                                         @can('edit bookings')
                                             <a href="{{url('bookings/'.$booking->booking_id.'/edit')}}" class="btn btn-success">Edit</a>

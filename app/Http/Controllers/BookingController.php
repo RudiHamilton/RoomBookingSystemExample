@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Booking;
 use App\Models\Room;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
@@ -43,17 +44,24 @@ class BookingController extends Controller
         $roomDepositCost = Room::where('room_id',$room_id)->value('deposit_cost');
         $roomDepositNeeded = Room::where('room_id',$room_id)->value('require_deposit');
 
+
         if($roomDepositNeeded == false){
+
             $date = $request->input('date');
-            $time = $request->input('time');
-            $time = $time.':00';
-            $date = $date.' '.$time;
+            $timeStart = new Carbon($request->input('timeStart'));
+            $timeEnd = new Carbon($request->input('timeEnd'));
+            
+            $hoursRoomBooked = $timeStart->diff($timeEnd)->format('%H');
 
             Booking::create([
                 'user_id'=> $user_id,
                 'room_id' => $room_id,
                 'date'=> $date,
+                'timeStart'=> $timeStart,
+                'timeEnd'=> $timeEnd,
+                'hoursRoomBooked'=>$hoursRoomBooked,
             ]);
+
             return redirect('dashboard')->with('status','Booking created successfully');
         } else{
             
@@ -66,14 +74,18 @@ class BookingController extends Controller
             }else{
 
                 $date = $request->input('date');
-                $time = $request->input('time');
-                $time = $time.':00';
-                $date = $date.' '.$time;
+                $timeStart = new Carbon($request->input('timeStart'));
+                $timeEnd = new Carbon($request->input('timeEnd'));
+                
+                $hoursRoomBooked = $timeStart->diff($timeEnd)->format('%H');
 
                 Booking::create([
                     'user_id'=> $user_id,
                     'room_id' => $room_id,
-                    'date'=> $date,
+                    'date'=>$date,
+                    'timeStart'=> $timeStart,
+                    'timeEnd'=> $timeEnd,
+                    'hoursRoomBooked'=>$hoursRoomBooked,
                 ]);
                 User::where('user_id',$user_id)
                     ->update([
@@ -111,14 +123,18 @@ class BookingController extends Controller
     public function update(Request $request,$booking_id)
     {
         $date = $request->input('date');
-        $time = $request->input('time');
-        $time = $time.':00';
-        $date = $date.' '.$time;
+        $timeStart = new Carbon($request->input('timeStart'));
+        $timeEnd = new Carbon($request->input('timeEnd'));
+        
+        $hoursRoomBooked = $timeStart->diff($timeEnd)->format('%H');
         
         $data = [
             'user_id'=> $request->user_id,
             'room_id'=> $request->room_id,
-            'date'=> $date,
+            'date' => $date,
+            'timeStart'=> $timeStart,
+            'timeEnd'=> $timeEnd,
+            'hoursRoomBooked'=>$hoursRoomBooked,
         ];
         Booking::where('booking_id',$booking_id)->update($data);
         return redirect('bookings')->with('success','Booking updated correctly');

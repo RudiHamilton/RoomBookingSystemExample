@@ -21,8 +21,10 @@ class BookingFactory extends Factory
         return [
             'room_id' => Room::inRandomOrder()->first()->room_id,
             'user_id' => User::inRandomOrder()->first()->user_id,
-            'date'=> fake()->dateTime(),
-
+            'date' => fake()->date(),
+            'timeStart'=> fake()->time(),
+            'timeEnd'=> fake()->time(),
+            'hoursRoomBooked'=>fake()->randomDigit()
         ];
     }
 }
