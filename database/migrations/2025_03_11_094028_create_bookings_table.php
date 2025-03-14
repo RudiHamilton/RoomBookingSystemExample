@@ -19,6 +19,7 @@ return new class extends Migration
             $table->time(column: 'timeStart');
             $table->time('timeEnd');
             $table->integer('hoursRoomBooked');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
