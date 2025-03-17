@@ -8,6 +8,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 
 class BookingController extends Controller
@@ -40,19 +41,36 @@ class BookingController extends Controller
      */
     public function store(Request $request,$user_id,$room_id)
     {
+        Log::info('Store room function reached');
         $creditBeforeBooking = User::where('user_id',$user_id)->value('credit');
         $roomDepositCost = Room::where('room_id',$room_id)->value('deposit_cost');
         $roomDepositNeeded = Room::where('room_id',$room_id)->value('require_deposit');
+        Log::info('Key data grabbed');
 
+        Log::info('Grabbing date');
+        $date = $request->input('date');
+        $timeStart = new Carbon($request->input('timeStart'));
+        $timeEnd = new Carbon($request->input('timeEnd'));
+
+        Log::info('Logic calculations');
+        $hoursRoomBooked = $timeStart->diff($timeEnd)->format('%H');
+        $existingBookings = Booking::where('room_id', $room_id)
+            ->where('date', $date)
+            ->get();
+
+        Log::info('Logic for if room booked check');
+        foreach ($existingBookings as $booking) {
+            $existingStart = new Carbon($booking->timeStart);
+            $existingEnd = new Carbon($booking->timeEnd);
+    
+            if ($timeStart < $existingEnd && $timeEnd > $existingStart) {
+                Log::info('Room already booked in timeslot');
+                return redirect('dashboard')->with('error', 'This room is already booked for the selected time.');
+            }
+        }
 
         if($roomDepositNeeded == false){
-
-            $date = $request->input('date');
-            $timeStart = new Carbon($request->input('timeStart'));
-            $timeEnd = new Carbon($request->input('timeEnd'));
-            
-            $hoursRoomBooked = $timeStart->diff($timeEnd)->format('%H');
-
+            Log::info('Store with no deposit method reached');
             Booking::create([
                 'user_id'=> $user_id,
                 'room_id' => $room_id,
@@ -61,24 +79,18 @@ class BookingController extends Controller
                 'timeEnd'=> $timeEnd,
                 'hoursRoomBooked'=>$hoursRoomBooked,
             ]);
-
+            Log::info('Stored info correctly');
             return redirect('dashboard')->with('status','Booking created successfully');
-        } else{
-            
+        } 
+        else{
             $creditAfterBooking =  $creditBeforeBooking - $roomDepositCost;
-
             if($creditAfterBooking < 0){
 
-                return redirect('dashboard')->with('status','please add more credits too book this room');
+                return redirect('dashboard')->with('error','please add more credits too book this room');
 
-            }else{
-
-                $date = $request->input('date');
-                $timeStart = new Carbon($request->input('timeStart'));
-                $timeEnd = new Carbon($request->input('timeEnd'));
-                
-                $hoursRoomBooked = $timeStart->diff($timeEnd)->format('%H');
-
+            }
+            else{
+                Log::info('Store method for requring deposit reached');
                 Booking::create([
                     'user_id'=> $user_id,
                     'room_id' => $room_id,
@@ -87,10 +99,13 @@ class BookingController extends Controller
                     'timeEnd'=> $timeEnd,
                     'hoursRoomBooked'=>$hoursRoomBooked,
                 ]);
+                Log::info('User data stored correctly ');
                 User::where('user_id',$user_id)
                     ->update([
                     'credit'=> $creditAfterBooking,
                 ]);
+                Log::info('Account credits updated');
+                Log::info('Stored info correctly');
                 return redirect('dashboard')->with('status','Booking created successfully');
             }
         }
